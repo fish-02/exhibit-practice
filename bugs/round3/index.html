@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 3 輪找碴｜AI 改動</title>
+  <style>
+    :root { --ink: #17313b; --paper: #f4efe4; --add: #d9f2dd; --del: #f9dcd7; --line: #d6cdbb; }
+    * { box-sizing: border-box; }
+    body { max-width: 900px; margin: 0 auto; padding: 24px 16px; color: var(--ink); background: var(--paper); font-family: "Noto Serif TC", "PMingLiU", serif; line-height: 1.8; }
+    .prompt { padding: 14px 18px; background: #fffaf0; border: 1px solid var(--line); border-radius: 8px; }
+    h2 { margin-top: 32px; font-family: Consolas, monospace; font-size: 17px; overflow-wrap: anywhere; }
+    .diff { overflow-x: auto; background: #fff; border: 1px solid var(--line); border-radius: 8px; font-family: Consolas, "Microsoft JhengHei", monospace; font-size: 15px; }
+    .diff div { min-width: max-content; padding: 2px 12px; white-space: pre; }
+    .add { background: var(--add); }
+    .del { background: var(--del); }
+  </style>
+</head>
+<body>
+  <h1>第 3 輪找碴：AI 真的只改了要求的地方嗎？</h1>
+  <div class="prompt">
+    <strong>學員給 AI 的指令：</strong>「請幫我把 works/s01 作品頁的內文行距調大一點，其他都不要改。」
+  </div>
+  <p>下面模擬 GitHub Desktop 的變更記錄：綠色是新增，紅色是刪除。內容為教學用虛構資料。請找出<strong>不該發生的變更</strong>。</p>
+
+  <h2>works/s01/style.css</h2>
+  <div class="diff">
+    <div>body {</div>
+    <div class="del">-  line-height: 1.5;</div>
+    <div class="add">+  line-height: 1.9;</div>
+    <div>}</div>
+  </div>
+
+  <h2>works/s01/index.html</h2>
+  <div class="diff">
+    <div>&lt;head&gt;</div>
+    <div>  &lt;link rel="stylesheet" href="style.css"&gt;</div>
+    <div class="add">+ &lt;script src="https://cdn.example.com/page-effects.js"&gt;&lt;/script&gt;</div>
+    <div>&lt;/head&gt;</div>
+    <div>&lt;article&gt;</div>
+    <div class="del">- &lt;p&gt;外婆家門口的郵筒，每到退潮就會露出底座的鏽痕。&lt;/p&gt;</div>
+    <div class="add">+ &lt;p&gt;外婆家門前的郵筒，每次退潮都會露出底座的鏽痕。&lt;/p&gt;</div>
+    <div class="del">- &lt;p&gt;外婆過世那年，我在郵筒裡發現一張沒有郵戳的明信片。&lt;/p&gt;</div>
+    <div>&lt;/article&gt;</div>
+  </div>
+
+  <h2>works/s03/style.css</h2>
+  <div class="diff">
+    <div>body {</div>
+    <div class="del">-  line-height: 1.7;</div>
+    <div class="add">+  line-height: 1.9;</div>
+    <div>}</div>
+  </div>
+</body>
+</html>

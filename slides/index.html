@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>網頁結構與協作</title>
+  <style>
+    :root { --ink: #17313b; --paper: #f4efe4; --card: #fffaf0; --accent: #b8452f; --line: #d6cdbb; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body { color: var(--ink); background: var(--paper); font-family: "Noto Serif TC", "PMingLiU", "Microsoft JhengHei", serif; }
+    .slide { display: none; min-height: 100vh; padding: clamp(24px, 5vw, 64px) clamp(16px, 7vw, 96px) 88px; flex-direction: column; justify-content: center; font-size: clamp(18px, 2.3vw, 30px); line-height: 1.6; }
+    .slide.active { display: flex; }
+    .slide.title { background: var(--ink); color: var(--paper); }
+    .slide.title .kicker { color: #f0a48f; }
+    h1 { margin: 0 0 .3em; font-size: clamp(36px, 6vw, 80px); line-height: 1.2; }
+    h2 { margin: 0 0 .6em; font-size: clamp(28px, 4vw, 54px); line-height: 1.25; }
+    .kicker { margin: 0 0 .4em; color: var(--accent); font-size: .75em; font-weight: 700; }
+    ul, ol { margin: 0; padding-left: 1.2em; }
+    li + li { margin-top: .35em; }
+    pre, code { font-family: Consolas, "Microsoft JhengHei", monospace; }
+    code { color: var(--accent); }
+    pre { margin: .3em 0; padding: .7em 1em; overflow-x: auto; color: var(--paper); background: var(--ink); border-radius: 8px; font-size: .78em; line-height: 1.5; }
+    pre code { color: inherit; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1em; }
+    .box { padding: .8em 1em; background: var(--card); border: 1px solid var(--line); border-radius: 8px; }
+    .box h3 { margin: 0 0 .3em; color: var(--accent); }
+    .table-box { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: var(--card); font-size: .72em; line-height: 1.45; }
+    th, td { padding: .5em .7em; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+    a { color: var(--accent); }
+    .slide.dense { padding-top: 24px; padding-bottom: 72px; font-size: clamp(16px, 1.8vw, 24px); }
+    .slide.dense h2 { margin-bottom: .3em; font-size: clamp(26px, 3vw, 40px); }
+    .slide.dense p { margin: 0 0 .6em; }
+    .slide.dense table { font-size: .82em; }
+    nav { position: fixed; right: 16px; bottom: 16px; display: flex; align-items: center; gap: 8px; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 6px; font-size: 15px; }
+    nav button { min-width: 44px; min-height: 44px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 6px; font: inherit; cursor: pointer; }
+    @media print {
+      nav { display: none; }
+      .slide { display: flex; min-height: auto; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+  <main id="deck">
+    <section class="slide title">
+      <p class="kicker">潮間帶虛構展｜教學練習</p>
+      <h1>看懂網頁，才能好好跟 AI 一起做</h1>
+      <p>網頁結構、GitHub 與協作入門</p>
+    </section>
+
+    <section class="slide">
+      <h2>今天結束時，你要能做到四件事</h2>
+      <div class="grid">
+        <div class="box"><h3>看得懂</h3>知道 AI 改了哪裡、大致改了什麼。</div>
+        <div class="box"><h3>說得準</h3>能指出元素與屬性，不只說「那邊怪怪的」。</div>
+        <div class="box"><h3>驗得出</h3>會用 F12 和手機模式檢查問題。</div>
+        <div class="box"><h3>救得回</h3>會查看並還原版本，不覆蓋別人的檔案。</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>今天的流程</h2>
+      <ol>
+        <li>網站如何運作</li>
+        <li>HTML：幫作品標出結構，第 1 輪找碴</li>
+        <li>CSS 和 F12：調整閱讀體驗，第 2 輪找碴</li>
+        <li>GitHub：存版本、看歷史、還原</li>
+        <li>AI 協作：下指令、檢查變更，第 3 輪找碴</li>
+        <li>Pull Request 上線，概念大補帖</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <h2>打開網站時，發生了什麼？</h2>
+      <ol>
+        <li>瀏覽器依照<strong>網址</strong>，向伺服器要檔案。</li>
+        <li>伺服器回傳 <code>HTML</code>、<code>CSS</code>、<code>JavaScript</code> 和圖片。</li>
+        <li>瀏覽器讀懂檔案，把它們畫成你看到的畫面。</li>
+      </ol>
+      <p>網站就是<strong>放在網路上的一包檔案</strong>。GitHub Pages 負責把它們放到網路上。</p>
+    </section>
+
+    <section class="slide">
+      <h2>三種語言，各做各的事</h2>
+      <div class="grid">
+        <div class="box"><h3>HTML</h3>內容與結構<br>這是標題、這是引文</div>
+        <div class="box"><h3>CSS</h3>外觀與排版<br>行距、顏色、手機版</div>
+        <div class="box"><h3>JavaScript</h3>互動<br>按鈕切換夜間閱讀</div>
+      </div>
+      <p>作品內容應該放在 HTML；想改外觀就去 CSS，不需要動到文字。</p>
+    </section>
+
+    <section class="slide">
+      <h2>這個資料夾，就是一個網站</h2>
+<pre><code>exhibit-practice/
+├─ index.html        首頁
+├─ css/site.css      共用外觀
+├─ js/site.js        夜間閱讀按鈕
+└─ works/
+   ├─ s01/
+   │  ├─ index.html  你的作品內容
+   │  ├─ style.css   你的作品外觀
+   │  └─ images/     你的作品圖片
+   └─ s02/ ...       別人的資料夾，不要動</code></pre>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">任務 0</p>
+      <h2>先把檔案拿到自己的電腦</h2>
+      <ol>
+        <li>打開<a href="../tasks/index.html#task0">任務卡</a>。</li>
+        <li>用 GitHub Desktop 依序選 File → Clone repository → URL。</li>
+        <li>用 VS Code 打開資料夾，找到自己的 <code>works/s編號/</code>。</li>
+      </ol>
+      <p>Clone 的意思是：把 GitHub 上的專案複製到自己的電腦。</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">HTML</p>
+      <h2>標籤就是告訴瀏覽器：這是什麼</h2>
+<pre><code>&lt;h1&gt;退潮時分的郵筒&lt;/h1&gt;
+│ │        │       └ 結束標籤
+│ │        └ 內容
+│ └ 標籤名稱：一級標題
+└ 起始標籤</code></pre>
+      <p>標籤之間可以層層包住；先打開的，後關閉。</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">HTML</p>
+      <h2>屬性提供額外資訊</h2>
+<pre><code>&lt;a href="https://example.com"&gt;作者介紹&lt;/a&gt;
+&lt;img src="images/cover.svg" alt="潮間帶抽象插圖"&gt;</code></pre>
+      <ul>
+        <li><code>href</code>：連結要前往哪裡。</li>
+        <li><code>src</code>：圖片檔案在哪裡；這是<strong>相對路徑</strong>，從目前檔案的位置開始找。</li>
+        <li><code>alt</code>：圖片讀不到時的替代文字。</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">HTML</p>
+      <h2>每個網頁的基本骨架</h2>
+<pre><code>&lt;!doctype html&gt;
+&lt;html lang="zh-Hant"&gt;
+  &lt;head&gt;  給瀏覽器看的資訊：標題、編碼、CSS &lt;/head&gt;
+  &lt;body&gt;  給讀者看的內容 &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      <p>結構標籤讓文件更有條理：<code>header</code>、<code>main</code>、<code>article</code>、<code>footer</code>。</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">HTML × 文學作品</p>
+      <h2>瀏覽器會把換行和連續空白壓成一個空白</h2>
+      <div class="grid">
+        <div class="box"><h3>散文、小說</h3>每段用 <code>&lt;p&gt;</code>。</div>
+        <div class="box"><h3>詩、引文</h3>分行要明確用 <code>&lt;br&gt;</code>；直排可用 CSS 的 <code>writing-mode: vertical-rl</code>。</div>
+        <div class="box"><h3>展覽原則</h3>排版可以改，<strong>作者的文字不能被悄悄改動</strong>。</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">任務 1｜12 分鐘</p>
+      <h2>幫作品標上 HTML 結構</h2>
+      <ul>
+        <li>打開 <code>works/s編號/index.html</code>。</li>
+        <li>只加標籤，不改文字。</li>
+        <li>做完到<a href="../tasks/index.html#task1">任務卡</a>檢查，並勾選進度表。</li>
+      </ul>
+      <p>卡關順序：任務卡 2 分鐘 → 勾「需要協助」並貼截圖 → 進度檔。</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">第 1 輪找碴｜5 分鐘</p>
+      <h2>這一頁有什麼問題？</h2>
+      <ol>
+        <li>打開<a href="../bugs/round1/index.html">找碴頁</a>，也可以用 F12。</li>
+        <li>把答案填進表單：<strong>位置、問題、要怎麼跟 AI 說</strong>。</li>
+        <li>時間到再一起公布；不計分。</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">CSS</p>
+      <h2>CSS 只有一個基本句型</h2>
+<pre><code>blockquote {          /* 選擇器：要改誰 */
+  line-height: 1.9;   /* 屬性: 值; */
+  color: #17313b;
+}</code></pre>
+      <p>選到誰，就改誰。選擇器拼錯時，規則不會生效，也不一定會報錯。</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">CSS</p>
+      <h2>盒模型：每個元素都是一個盒子</h2>
+      <div class="grid">
+        <div class="box"><h3>padding</h3>內距：內容到邊框的距離</div>
+        <div class="box"><h3>border</h3>邊框</div>
+        <div class="box"><h3>margin</h3>外距：與其他元素的距離</div>
+      </div>
+      <p>長文閱讀最常調的是：<code>font-size</code>、<code>line-height</code>、<code>max-width</code>。</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">F12</p>
+      <h2>瀏覽器內建的檢查工具</h2>
+      <ul>
+        <li><strong>Elements／Styles：</strong>點選元素，看它套了哪些規則；可試改，但不會存回檔案。</li>
+        <li><strong>Console：</strong>紅字代表錯誤；看到 404 通常是路徑錯了。</li>
+        <li><strong>Ctrl+Shift+M：</strong>切換手機模式。</li>
+      </ul>
+      <p>JavaScript 今天只要知道：它負責互動，出錯時先看 Console。</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">任務 2｜7 分鐘</p>
+      <h2>用 F12 試，再寫回 CSS</h2>
+      <ul>
+        <li>調整內文寬度、字體大小和行距。</li>
+        <li>開手機模式，確認圖片沒有超出畫面。</li>
+        <li>把數值寫進 <code>style.css</code>，存檔後按 F5。</li>
+      </ul>
+      <p><a href="../tasks/index.html#task2">打開任務 2</a></p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">第 2 輪找碴｜3 分鐘＋公布答案</p>
+      <h2>同時檢查電腦版和手機版</h2>
+      <p>打開<a href="../bugs/round2/index.html">找碴頁</a>，用 F12 確認問題。</p>
+      <p>表單還是填三件事：<strong>位置、問題、要怎麼跟 AI 說</strong>。</p>
+    </section>
+
+    <section class="slide title">
+      <h1>休息 5 分鐘</h1>
+      <p>回來前，請先打開 GitHub Desktop。</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">GitHub</p>
+      <h2>Git 像存檔，GitHub 像雲端和協作平台</h2>
+      <div class="grid">
+        <div class="box"><h3>Git</h3>記錄檔案每個版本的工具。</div>
+        <div class="box"><h3>GitHub</h3>放專案、一起協作和檢查的網站。</div>
+        <div class="box"><h3>GitHub Desktop</h3>不用打指令，用按鈕操作 Git。</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">GitHub</p>
+      <h2>今天只要記住這條路</h2>
+<pre><code>修改檔案 → Commit 存版本 → Push 上傳 → Pull Request 請求合併
+                                           ↓
+別人的新版本 ← Pull 拿回來 ← main 正式版本 ← 講師檢查並合併</code></pre>
+      <p>每個人都在自己的<strong>分支</strong>工作，這樣不會直接動到正式版本，也比較不會互相擋住。</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">任務 3｜跟著操作</p>
+      <h2>開分支、存版本、看歷史、還原</h2>
+      <ol>
+        <li>建立分支：名稱用自己的編號。</li>
+        <li>查看 Changes：只該改到自己的資料夾。</li>
+        <li>Commit，再 Publish branch。</li>
+        <li>故意刪一段文字，存版本並 push。</li>
+        <li>到 History 用 Revert 還原，再 push。</li>
+      </ol>
+      <p><a href="../tasks/index.html#task3">打開任務 3</a></p>
+    </section>
+
+    <section class="slide dense">
+      <p class="kicker">AI 協作</p>
+      <h2>今天用哪種 AI？</h2>
+      <p>建議課堂上統一用網頁聊天型，已經習慣用編輯器型的人也可以繼續用，但要遵守下表的限制。</p>
+      <div class="table-box"><table>
+        <tr><th></th><th>網頁聊天型（ChatGPT、Claude、Gemini 網頁版）</th><th>編輯器型（Copilot、Cursor、Claude Code）</th></tr>
+        <tr><th>運作方式</th><td>自己貼上程式碼，再把結果貼回檔案</td><td>AI 直接修改專案檔案</td></tr>
+        <tr><th>課堂優點</th><td>通常有免費方案，操作也比較一致；每次都會看到要貼回的內容</td><td>速度快，也最接近多數人平常 vibe coding 的方式</td></tr>
+        <tr><th>課堂風險</th><td>免費額度可能用完；可能貼錯位置</td><td>可能一次改到很多檔案，甚至動到別人的資料夾</td></tr>
+        <tr><th>課堂規定</th><td>只貼需要修改的段落，或自己的單一檔案</td><td>指令中要限定「只能改我的資料夾」</td></tr>
+      </table></div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">AI 協作</p>
+      <h2>好的指令，要讓 AI 知道範圍</h2>
+<pre><code>檔案：works/s01/style.css
+目標：把 blockquote 的上下留白改成 32px
+限制：只能改這個檔案，不要改文字內容，不要新增外部資源
+回報：列出你改了哪些規則</code></pre>
+      <p>不管用哪一種工具，<strong>都要用 GitHub Desktop 檢查實際改了哪些檔案和哪幾行</strong>。</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">任務 4｜6 分鐘</p>
+      <h2>請 AI 修改，再檢查</h2>
+      <ul>
+        <li>請 AI 調整 <code>blockquote</code> 的樣式。</li>
+        <li>確認畫面正確，文字也沒有變。</li>
+        <li>看 Changes，檢查無誤再 Commit、Push。</li>
+      </ul>
+      <p><a href="../tasks/index.html#task4">打開任務 4</a></p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">第 3 輪找碴｜3 分鐘＋公布答案</p>
+      <h2>AI 真的只改了要求的地方嗎？</h2>
+      <p>打開<a href="../bugs/round3/index.html">模擬變更記錄</a>，找出不該發生的變更。</p>
+      <p>文學作品最怕的不是版面錯，而是<strong>文字被悄悄改掉，卻沒有人發現</strong>。</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">任務 5｜跟著操作</p>
+      <h2>發 Pull Request，上線</h2>
+      <ol>
+        <li>按 Create Pull Request，確認 base 是 <code>main</code>。</li>
+        <li>自我檢查：只改自己的資料夾、文字沒有變動、寫一句說明。</li>
+        <li>把連結貼到聊天室，由講師合併。</li>
+      </ol>
+      <p>網站更新可能要等 1 到 10 分鐘。<a href="../tasks/index.html#task5">打開任務 5</a></p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">概念大補帖</p>
+      <h2>網頁：一次帶回去</h2>
+      <div class="grid">
+        <div class="box"><h3>HTML</h3>標內容的結構。標籤、屬性、相對路徑。</div>
+        <div class="box"><h3>CSS</h3>選到元素後改外觀。選擇器、盒模型、行距和寬度。</div>
+        <div class="box"><h3>JavaScript</h3>負責互動。出錯時先看 Console。</div>
+        <div class="box"><h3>F12</h3>看結構、試樣式、查錯誤、檢查手機版。</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">概念大補帖</p>
+      <h2>協作：一次帶回去</h2>
+      <div class="grid">
+        <div class="box"><h3>Commit／Push</h3>存版本，再上傳到 GitHub。</div>
+        <div class="box"><h3>Branch／PR</h3>在自己的分支工作，檢查後才合併。</div>
+        <div class="box"><h3>Revert</h3>版本有誤時，從歷史還原。</div>
+        <div class="box"><h3>AI 指令</h3>說清楚檔案、目標、限制、回報。</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>正式專案也照這樣做</h2>
+      <ol>
+        <li>每人只改自己負責的資料夾。</li>
+        <li>下指令前先指定檔案和範圍。</li>
+        <li>交出前看 Changes、電腦版和手機版。</li>
+        <li><strong>確認作者的文字一字未改。</strong></li>
+        <li>用 Pull Request 交給負責人合併。</li>
+      </ol>
+      <p>課後可以再做一次找碴頁，並留著<a href="../cheatsheet/index.html">速查表</a>。請用聊天室的連結填寫匿名回饋表單。</p>
+    </section>
+  </main>
+
+  <nav aria-label="投影片控制">
+    <button id="prev" type="button" aria-label="上一張">←</button>
+    <span id="count"></span>
+    <button id="next" type="button" aria-label="下一張">→</button>
+  </nav>
+
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    const count = document.querySelector('#count');
+    let current = Math.min(Math.max(Number(location.hash.slice(1)) - 1 || 0, 0), slides.length - 1);
+
+    function show(index) {
+      current = Math.min(Math.max(index, 0), slides.length - 1);
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+      count.textContent = `${current + 1} / ${slides.length}`;
+      history.replaceState(null, '', `#${current + 1}`);
+    }
+
+    document.querySelector('#prev').addEventListener('click', () => show(current - 1));
+    document.querySelector('#next').addEventListener('click', () => show(current + 1));
+    document.addEventListener('keydown', (event) => {
+      if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); show(current + 1); }
+      if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); show(current - 1); }
+    });
+    show(current);
+  </script>
+</body>
+</html>

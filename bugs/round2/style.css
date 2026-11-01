@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  background: #f7f7f2;
+  font-family: "Noto Serif TC", "PMingLiU", serif;
+  color: #c9c9c2;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.page {
+  width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h1 {
+  color: #17313b;
+  font-size: 32px;
+}
+
+.note {
+  color: #b8452f;
+}
+
+.qoute {
+  padding-left: 20px;
+  border-left: 4px solid #b8452f;
+  color: #17313b;
+}

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>網頁協作速查表</title>
+  <link rel="stylesheet" href="../css/site.css">
+  <style>
+    .wrap { max-width: 900px; }
+    h1 { margin-top: 40px; }
+    h2 { margin-top: 32px; }
+    .table-box { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: var(--card); }
+    th, td { padding: 8px 12px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+    code, pre { font-family: Consolas, "Microsoft JhengHei", monospace; }
+    pre { overflow-x: auto; padding: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 6px; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>網頁協作速查表</h1>
+    <p><a href="../index.html">回展覽首頁</a>｜<a href="../tasks/index.html">任務卡</a></p>
+
+    <h2>三種語言的分工</h2>
+    <div class="table-box"><table>
+      <tr><th>語言</th><th>負責</th><th>展覽網站的例子</th></tr>
+      <tr><td>HTML</td><td>內容與結構</td><td>這是標題、這是引文</td></tr>
+      <tr><td>CSS</td><td>外觀與排版</td><td>行距、顏色、手機版寬度</td></tr>
+      <tr><td>JavaScript</td><td>互動</td><td>切換夜間閱讀</td></tr>
+    </table></div>
+
+    <h2>常用 HTML</h2>
+    <div class="table-box"><table>
+      <tr><th>標籤</th><th>用途</th></tr>
+      <tr><td><code>&lt;h1&gt;</code>～<code>&lt;h6&gt;</code></td><td>標題；每頁通常一個 h1</td></tr>
+      <tr><td><code>&lt;p&gt;</code></td><td>段落</td></tr>
+      <tr><td><code>&lt;br&gt;</code></td><td>詩句或引文內換行</td></tr>
+      <tr><td><code>&lt;blockquote&gt;</code></td><td>引文區塊</td></tr>
+      <tr><td><code>&lt;a href="網址"&gt;</code></td><td>超連結</td></tr>
+      <tr><td><code>&lt;img src="路徑" alt="圖片說明"&gt;</code></td><td>圖片；alt 是讀不到圖片時的替代文字</td></tr>
+      <tr><td><code>&lt;header&gt; &lt;main&gt; &lt;article&gt; &lt;footer&gt;</code></td><td>頁首、主要內容、獨立文章、頁尾</td></tr>
+    </table></div>
+
+    <h2>常用 CSS</h2>
+    <pre>選擇器 {
+  屬性: 值;
+}
+
+line-height  行距      font-size   字體大小
+color        文字色    background  背景
+max-width    最大寬度  margin      外距
+padding      內距      border      邊框</pre>
+
+    <h2>F12 檢查</h2>
+    <ul>
+      <li><strong>Elements／Styles：</strong>看結構和樣式；在這裡的修改不會存回檔案。</li>
+      <li><strong>Console：</strong>紅字代表錯誤，例如檔案找不到（404）。</li>
+      <li><strong>Ctrl+Shift+M：</strong>切換手機模式。</li>
+    </ul>
+
+    <h2>對 AI 下指令的範本</h2>
+    <pre>檔案：works/s01/style.css
+目標：把 blockquote 的上下留白改成 32px
+限制：只能改這個檔案，不要改文字內容，不要新增外部資源
+回報：列出你改了哪些規則</pre>
+
+    <h2>AI 工具類型</h2>
+    <p>建議課堂上統一用網頁聊天型，已經習慣用編輯器型的人也可以繼續用，但要遵守下表的限制。</p>
+    <div class="table-box"><table>
+      <tr><th></th><th>網頁聊天型（ChatGPT、Claude、Gemini 網頁版）</th><th>編輯器型（Copilot、Cursor、Claude Code）</th></tr>
+      <tr><th>運作方式</th><td>自己貼上程式碼，再把結果貼回檔案</td><td>AI 直接修改專案檔案</td></tr>
+      <tr><th>課堂優點</th><td>通常有免費方案，操作也比較一致；每次都會看到要貼回的內容</td><td>速度快，也最接近多數人平常 vibe coding 的方式</td></tr>
+      <tr><th>課堂風險</th><td>免費額度可能用完；可能貼錯位置</td><td>可能一次改到很多檔案，甚至動到別人的資料夾</td></tr>
+      <tr><th>課堂規定</th><td>只貼需要修改的段落，或自己的單一檔案</td><td>指令中要限定「只能改我的資料夾」</td></tr>
+    </table></div>
+
+    <h2>Git 用語與救急</h2>
+    <div class="table-box"><table>
+      <tr><th>用語</th><th>意思</th><th>GitHub Desktop</th></tr>
+      <tr><td>Commit</td><td>在自己電腦存一個版本</td><td>Commit to 分支名稱</td></tr>
+      <tr><td>Push</td><td>把版本送上 GitHub</td><td>Push origin／Publish branch</td></tr>
+      <tr><td>Pull</td><td>把 GitHub 的新版本拿回來</td><td>Fetch origin → Pull origin</td></tr>
+      <tr><td>Branch</td><td>自己的工作空間</td><td>Current Branch → New Branch</td></tr>
+      <tr><td>Pull Request</td><td>請別人檢查後合併</td><td>Create Pull Request</td></tr>
+    </table></div>
+    <ul>
+      <li><strong>還沒 commit 想放棄：</strong>Changes 對檔案按右鍵 → Discard Changes。</li>
+      <li><strong>已經 commit 想復原：</strong>History 對版本按右鍵 → Revert Changes in Commit。</li>
+      <li><strong>看到衝突（conflict）：</strong>先不要亂改，截圖找負責的同學。</li>
+    </ul>
+    <h2>送出前檢查</h2>
+    <ul>
+      <li>只改到自己的資料夾。</li>
+      <li>作品文字沒有被改動或刪除。</li>
+      <li>電腦版和手機版都看過。</li>
+    </ul>
+  </main>
+</body>
+</html>

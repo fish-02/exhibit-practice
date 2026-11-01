@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>課堂任務卡</title>
+  <link rel="stylesheet" href="../css/site.css">
+  <style>
+    .wrap { max-width: 800px; }
+    h1 { margin-top: 40px; }
+    article { margin: 24px 0; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; }
+    h2 { margin-top: 0; }
+    code { font-family: Consolas, monospace; overflow-wrap: anywhere; }
+    pre { overflow-x: auto; padding: 14px; background: var(--paper); border-radius: 6px; font-family: Consolas, "Microsoft JhengHei", monospace; }
+    .rescue { padding: 12px 16px; border-left: 4px solid var(--accent); }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>課堂任務卡</h1>
+    <p><a href="../index.html">回展覽首頁</a>｜<a href="../cheatsheet/index.html">速查表</a></p>
+
+    <section class="rescue">
+      <h2>卡關時</h2>
+      <ol>
+        <li>先比對任務卡的「完成檢查」和「常見問題」，最多 2 分鐘。</li>
+        <li>在進度試算表勾「需要協助」，把截圖貼到 Meet 聊天室，格式：<code>s03｜任務 2｜我做了什麼｜看到什麼</code>。</li>
+        <li>講師處理不到時，先用「進度檔」跟上，問題課後再處理。</li>
+      </ol>
+      <p>下面的 <code>s01</code> 都要換成你的編號。</p>
+    </section>
+
+    <article id="task0">
+      <h2>任務 0：把練習檔案拿到電腦上</h2>
+      <ol>
+        <li>打開 GitHub Desktop，選 <strong>File → Clone repository → URL</strong>。</li>
+        <li>貼上講師在聊天室提供的 repo 網址，按 <strong>Clone</strong>。</li>
+        <li>按 <strong>Open in Visual Studio Code</strong>。</li>
+      </ol>
+      <p><strong>完成檢查：</strong>VS Code 左側看得到 <code>works</code> 資料夾。</p>
+      <p><strong>常見問題：</strong>找不到 VS Code 按鈕時，可在 VS Code 選「檔案 → 開啟資料夾」，打開 GitHub Desktop 顯示的 Local path。</p>
+    </article>
+
+    <article id="task1">
+      <h2>任務 1：幫作品標上 HTML 結構</h2>
+      <p>打開 <code>works/s01/index.html</code>，<strong>只加標籤，不改文字</strong>：</p>
+      <ol>
+        <li>作品名稱用 <code>&lt;h1&gt;</code>；作者與每段內文用 <code>&lt;p&gt;</code>。</li>
+        <li>把圖片說明換成 <code>&lt;img src="images/cover.svg" alt="潮間帶抽象插圖"&gt;</code>。</li>
+        <li>引文用 <code>&lt;blockquote&gt;</code>，每行後面加 <code>&lt;br&gt;</code>（最後一行不用）。</li>
+        <li>內容用 <code>&lt;main&gt;</code> 包起來，最後一句聲明放進 <code>&lt;footer&gt;</code>。</li>
+      </ol>
+      <p>存檔（Ctrl+S）後，在檔案總管雙擊 <code>index.html</code> 用瀏覽器打開；之後改完存檔，按 F5 重新整理。</p>
+      <p><strong>完成檢查：</strong>圖片有出現、引文分成 3 行。可對照<a href="../example/index.html">完成範例</a>的結構。</p>
+      <p><strong>常見問題：</strong>圖片破圖時，檢查路徑是不是 <code>images/cover.svg</code>；畫面沒變時，確認有存檔。</p>
+      <p><strong>進度檔：</strong>複製 <code>progress-files/s01/1-html-done.html</code> 的全部內容，貼進自己的 <code>index.html</code>。</p>
+    </article>
+
+    <article id="task2">
+      <h2>任務 2：用 CSS 和 F12 調整閱讀體驗</h2>
+      <ol>
+        <li>在作品頁按 F12，選左上角的箭頭工具，再點內文。</li>
+        <li>在 Styles 區試著加上 <code>line-height: 1.9;</code>。這裡的修改重新整理就會消失。</li>
+        <li>按 Ctrl+Shift+M 開啟手機模式，看看圖片有沒有超出畫面。</li>
+        <li>把下面的內容加進自己的 <code>style.css</code> 並存檔。</li>
+      </ol>
+      <pre>body {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.9;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}</pre>
+      <p><strong>完成檢查：</strong>內文不擠，手機模式下沒有左右捲動。</p>
+      <p><strong>常見問題：</strong>規則沒生效時，檢查大括號、冒號、分號是否是半形。</p>
+      <p><strong>進度檔：</strong>複製 <code>progress-files/s01/2-css-done.css</code> 的全部內容，貼進自己的 <code>style.css</code>。</p>
+    </article>
+
+    <article id="task3">
+      <h2>任務 3：用 GitHub Desktop 存一個版本</h2>
+      <ol>
+        <li>點上方 <strong>Current Branch → New Branch</strong>，名稱填 <code>s01</code>，按 Create Branch。如果跳出詢問，選擇把變更帶到新分支（Bring my changes）。</li>
+        <li>在 <strong>Changes</strong> 分頁確認：所有變更都在 <code>works/s01/</code> 底下。</li>
+        <li>左下角 Summary 寫 <code>完成作品頁結構與排版</code>，按 <strong>Commit to s01</strong>。</li>
+        <li>按上方 <strong>Publish branch</strong>。</li>
+        <li>到 <strong>History</strong> 分頁，看到剛才的版本。</li>
+      </ol>
+      <p><strong>還原練習：</strong>在 VS Code 刪掉一段內文，存檔後 commit、push，再到 History 對該版本按右鍵選 <strong>Revert Changes in Commit</strong>，最後再 push 一次。這段文字應該會回來。</p>
+      <p><strong>完成檢查：</strong>History 看得到 3 個新版本（修改、刪除、還原）。</p>
+      <p><strong>常見問題：</strong>沒有 push 權限時，到 Email 或 GitHub 接受協作者邀請。</p>
+      <p><strong>備案：</strong>Desktop 無法使用時，在 GitHub 的 repo 頁面按鍵盤 <code>.</code> 開啟 github.dev，並跟著講師操作。</p>
+    </article>
+
+    <article id="task4">
+      <h2>任務 4：請 AI 修改，再檢查它改了什麼</h2>
+      <p>課堂統一建議用網頁聊天型 AI；習慣用編輯器型的人也可以，但指令要限定只能改自己的資料夾。</p>
+      <p>把 <code>style.css</code> 全部內容貼給 AI，並附上這段指令：</p>
+      <pre>這是一個文學作品頁的 CSS。請只幫我設定 blockquote 的樣式：
+上下留白 32px、左內距 20px、左邊框 4px、顏色 #c8553d。
+不要改動其他規則，不要加入新檔案，也不要新增外部資源。
+請回傳完整 CSS。</pre>
+      <ol>
+        <li>把結果貼回 <code>style.css</code>，存檔並重新整理。</li>
+        <li>到 GitHub Desktop 的 Changes 檢查：只改到 <code>works/s01/style.css</code>，而且只新增了 blockquote 規則。</li>
+        <li>確認無誤後 commit、push。</li>
+      </ol>
+      <p><strong>完成檢查：</strong>引文左側有紅色線條，其他文字內容沒有變。</p>
+      <p><strong>進度檔：</strong>複製 <code>progress-files/s01/3-ai-done.css</code> 的全部內容，貼進自己的 <code>style.css</code>。</p>
+    </article>
+
+    <article id="task5">
+      <h2>任務 5：發 Pull Request</h2>
+      <ol>
+        <li>確認 GitHub Desktop 已 push，再按 <strong>Create Pull Request</strong>（或 Preview Pull Request）。</li>
+        <li>在瀏覽器確認 base 是 <code>main</code>、compare 是 <code>s01</code>，按 <strong>Create pull request</strong>。</li>
+        <li>對照下面 3 項自我檢查，並把連結貼到 Meet 聊天室。</li>
+      </ol>
+      <ul>
+        <li>Files changed 只有 <code>works/s01/</code> 底下的檔案。</li>
+        <li>作品文字沒有被改動或刪除。</li>
+        <li>內容開頭寫一句：我改了什麼。</li>
+      </ul>
+      <p><strong>完成檢查：</strong>講師合併後，等待 1 到 10 分鐘，展覽網站上的作品會更新。</p>
+    </article>
+  </main>
+</body>
+</html>
