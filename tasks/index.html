@@ -26,14 +26,13 @@
       <ol>
         <li>先比對任務卡的「完成檢查」和「常見問題」，最多 2 分鐘。</li>
         <li>在進度試算表勾「需要協助」，把截圖貼到 Meet 聊天室，格式：<code>s03｜任務 2｜我做了什麼｜看到什麼</code>。</li>
-        <li>講師處理不到時，先用「進度檔」跟上，問題課後再處理。進度檔只補作品檔案，Commit 和 Push 還是要自己完成。</li>
+        <li>講師處理不到時，先用「進度檔」跟上，問題課後再處理。</li>
       </ol>
       <p>下面的 <code>s01</code> 都要換成你的編號。</p>
     </section>
 
     <article id="task0">
       <h2>任務 0：把練習檔案拿到電腦上</h2>
-      <p>20:30 提早進會議的人先做；其他人在開場後的任務 0 時間完成。</p>
       <ol>
         <li>打開 GitHub Desktop，選 <strong>File → Clone repository → URL</strong>。</li>
         <li>貼上講師在聊天室提供的 repo 網址，按 <strong>Clone</strong>。</li>
@@ -91,8 +90,8 @@ img {
         <li>按上方 <strong>Publish branch</strong>。</li>
         <li>到 <strong>History</strong> 分頁，看到剛才的版本。</li>
       </ol>
-      <p><strong>完成檢查：</strong>History 看得到剛才的版本，而且上方按鈕不再顯示 Publish branch。</p>
-      <p><strong>看講師示範：</strong>刪掉一段文字後，在 History 對該版本按右鍵選 <strong>Revert Changes in Commit</strong>，文字就會回來。這一步不用跟著做，課後可以自己試。</p>
+      <p><strong>還原練習：</strong>在 VS Code 刪掉一段內文，存檔後 commit、push，再到 History 對該版本按右鍵選 <strong>Revert Changes in Commit</strong>，最後再 push 一次。這段文字應該會回來。</p>
+      <p><strong>完成檢查：</strong>History 看得到 3 個新版本（修改、刪除、還原）。</p>
       <p><strong>常見問題：</strong>沒有 push 權限時，到 Email 或 GitHub 接受協作者邀請。</p>
       <p><strong>備案：</strong>Desktop 無法使用時，在 GitHub 的 repo 頁面按鍵盤 <code>.</code> 開啟 github.dev，並跟著講師操作。</p>
     </article>
@@ -116,7 +115,6 @@ img {
 
     <article id="task5">
       <h2>任務 5：發 Pull Request</h2>
-      <p>講師會依進度決定大家一起發，或先看示範。如果改看示範，學員的 Pull Request 由講師課後協助。</p>
       <ol>
         <li>確認 GitHub Desktop 已 push，再按 <strong>Create Pull Request</strong>（或 Preview Pull Request）。</li>
         <li>在瀏覽器確認 base 是 <code>main</code>、compare 是 <code>s01</code>，按 <strong>Create pull request</strong>。</li>
